@@ -1,12 +1,11 @@
 import streamlit as st 
 import pandas as pd
+import matplotlib.pyplot as plt
 import os
-import matplotlib
 from dotenv import load_dotenv
 from pandasai.llm import AzureOpenAI
-from pandasai import SmartDatalake
+from pandasai import Agent
 load_dotenv()
-matplotlib.use('TkAgg')
 
 st.title("Cengage DataAnalyzer Demo")
 
@@ -32,11 +31,18 @@ llm = AzureOpenAI(
 )
 
 # Generate output
-data = SmartDatalake(dataframes, config={"llm": llm})
+agent = Agent(dataframes, config={"llm": llm})
 
 if st.button("Generate"):
     if prompt:
         with st.spinner("Generating response..."):
-                st.write(data.chat(prompt))
+                response = agent.chat(prompt)
+                if os.path.isfile(response):
+                    img = plt.imread(response)
+                    st.image(img)
+                    os.remove(response)
+
+                if response is not None:
+                    st.write(response)
     else:
         st.warning("Please enter a prompt.")
