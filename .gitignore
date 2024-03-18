@@ -1,0 +1,10 @@
+
+.env
+
+.vscode/
+
+cache/
+
+exports/charts/
+
+pandasai.log
