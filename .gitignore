@@ -8,3 +8,5 @@ cache/
 exports/charts/
 
 pandasai.log
+
+.DS_Store
