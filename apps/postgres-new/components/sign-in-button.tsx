@@ -11,7 +11,7 @@ export default function SignInButton() {
       }}
     >
       <GitHubIcon className="text-xl" />
-      Sign in with GitHub
+      Sign in 
     </button>
   )
 }

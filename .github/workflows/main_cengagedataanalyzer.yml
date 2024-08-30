@@ -1,0 +1,40 @@
+# name: Deploy to Azure Web App
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: '18'
+
+#       - name: Install dependencies
+#         run: npm install
+#         working-directory: ./apps/postgres-new
+
+#       - name: Build the app
+#         env:
+#           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+#           PROJECT_ID: orueoagwpfzwzkpnynhf
+#           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+#           NEXT_PUBLIC_SUPABASE_URL: https://orueoagwpfzwzkpnynhf.supabase.co
+
+#         run: npm run build
+#         working-directory: ./apps/postgres-new
+
+#       - name: 'Deploy to Azure Web App'
+#         uses: azure/webapps-deploy@v2
+#         id: deploy-to-webapp
+#         with:
+#           app-name: 'cengagedataanalyzer'
+#           slot-name: 'Production'
+#           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_60DCC0F0C67E4A62BC425B4674CF73F7 }}

@@ -71,9 +71,10 @@ export default function AppProvider({ children }: AppProps) {
 
   const signIn = useCallback(async () => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
+      provider: 'azure',
       options: {
-        redirectTo: window.location.toString(),
+        redirectTo: process.env.AZURE_TENANT_REDIRECT,
+        scopes: 'openid profile email',
       },
     })
 

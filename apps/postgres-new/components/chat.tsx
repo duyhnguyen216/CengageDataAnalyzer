@@ -350,7 +350,7 @@ export default function Chat() {
               >
                 <SignInButton />
                 <p className="font-lighter text-center">
-                  To prevent abuse we ask you to sign in before chatting with AI.
+                  AI can provide inacurate result. Please remember to double the work it produces.
                 </p>
                 <p
                   className="underline cursor-pointer text-primary/50"
@@ -404,7 +404,7 @@ export default function Chat() {
             >
               <SignInButton />
               <p className="font-lighter text-center text-sm">
-                To prevent abuse we ask you to sign in before chatting with AI.
+                AI can provide inacurate result. Please remember to double the work it produces.
               </p>
               <p
                 className="underline cursor-pointer text-sm text-primary/50"

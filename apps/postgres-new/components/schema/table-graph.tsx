@@ -156,7 +156,7 @@ export default function TablesGraph({
       <div className="p-2.5 flex gap-2 justify-center bg-muted text-xs text-muted-foreground/75 border-t">
         {pgVersion && (
           <>
-            <span>PG {pgVersion}</span> |
+            <span>PostGre {pgVersion}</span> |
           </>
         )}
         {visibility === 'local' && (

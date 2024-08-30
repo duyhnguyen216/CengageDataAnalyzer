@@ -24,8 +24,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="w-full h-full flex flex-col overflow-hidden">
           {isPreview && (
             <div className="px-3 py-3 flex justify-center text-sm text-center bg-neutral-800 text-white">
-              Heads up! This is a preview version of postgres.new, so expect some changes here and
-              there.
+              This is currently in beta.
             </div>
           )}
           <main className="flex-1 flex flex-col lg:flex-row min-h-0">

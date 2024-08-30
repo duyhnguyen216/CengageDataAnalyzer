@@ -1,4 +1,5 @@
 import { createOpenAI } from '@ai-sdk/openai'
+import { createAzure, azure } from '@ai-sdk/azure';
 import { Ratelimit } from '@upstash/ratelimit'
 import { kv } from '@vercel/kv'
 import { ToolInvocation, convertToCoreMessages, streamText } from 'ai'
@@ -27,14 +28,28 @@ type Message = {
   toolInvocations?: (ToolInvocation & { result: any })[]
 }
 
-const chatModel = process.env.OPENAI_MODEL ?? 'gpt-4o-2024-08-06'
+// Check if AZURE environment variables are present
+const isUsingAzure = process.env.AZURE_OPENAI_API_KEY && process.env.AZURE_OPENAI_MODEL;
 
-// Configure OpenAI client with custom base URL
-const openai = createOpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  baseURL: process.env.OPENAI_API_BASE ?? 'https://api.openai.com/v1',
-  compatibility: 'strict',
-})
+// Determine the model and API configuration based on the environment
+const chatModel: string = isUsingAzure
+  ? process.env.AZURE_OPENAI_MODEL ?? 'gpt-4o-2024-08-06'
+  : process.env.OPENAI_MODEL ?? 'gpt-4o-2024-08-06';
+
+
+// Configure the API client based on the environment
+const openai = isUsingAzure
+  ? createAzure({
+      apiKey: process.env.AZURE_OPENAI_API_KEY,
+      baseURL: process.env.AZURE_OPENAI_API_BASE ?? 'https://api.openai.azure.com/v1',
+    })
+  : createOpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+      baseURL: process.env.OPENAI_API_BASE ?? 'https://api.openai.com/v1',
+      compatibility: 'strict',
+    });
+
+
 
 export async function POST(req: Request) {
   const supabase = createClient()
@@ -103,7 +118,7 @@ export async function POST(req: Request) {
 
       Feel free to suggest corrections for suspected typos.
     `,
-    model: openai(chatModel),
+    model: isUsingAzure ? azure(chatModel) : openai(chatModel),
     messages: convertToCoreMessages(trimmedMessageContext),
     tools: convertToCoreTools(tools),
     async onFinish({ usage }) {

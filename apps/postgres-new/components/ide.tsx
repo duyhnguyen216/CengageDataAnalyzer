@@ -265,13 +265,8 @@ export default function IDE({ children, className }: IDEProps) {
 function Footer() {
   return (
     <div className="flex flex-row gap-1 pb-1 text-xs text-neutral-500 text-center justify-center">
-      <a
-        className="underline cursor-pointer"
-        href="https://github.com/supabase-community/postgres-new"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn about postgres.new
+      <a>
+        Contact Duy Nguyen - duy.nguyen@cengage.com for support
       </a>
     </div>
   )
